@@ -1,3 +1,4 @@
+
 package conexion;
 
 /*
@@ -13,21 +14,25 @@ package conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-        
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ConexionDB {
      public static final String DRIVER_DB = "org.postgresql.Driver";
-    public static final String URL_DB ="jdbc:postgresql://localhost:5432/midatabase";
+    public static final String URL_DB ="jdbc:postgresql://localhost:5432/postgres";
     public static final String USER_DB = "postgres";
-    public static final String PASSWORD_DB = "12345";
+    public static final String PASSWORD_DB = "123456";
     public static Connection conn;
     static{
         try {
             Class.forName(DRIVER_DB);
             conn=DriverManager.getConnection(URL_DB, USER_DB, PASSWORD_DB);   
-        } catch (Exception e) {
-            System.out.println("Ocurrio un error: "+ e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-            System.out.println("La conexion se realizo correctamente");
     
     }
 }

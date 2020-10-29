@@ -3,7 +3,8 @@
     Created on : 27/10/2020, 01:50:23 PM
     Author     : Alvarado Montes
 --%>
-
+<%@page import="modelo.Producto"%> 
+<%@page import="utilerias.InformacionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,14 @@
 	link="#25B01A" vlink="#1A2CB0" alink="#E50A0A">
         
         <h1>Agregar nuevos productos</h1>
+        <% 
+            String codigo = request.getParameter("codigo");
+            String nombreProducto = request.getParameter("nombreProducto");
+            String cantidad = request.getParameter("cantidad");
+            String precio = request.getParameter("precio");
+            if(codigo==null && nombreProducto==null && cantidad==null && precio==null){ 
+            
+        %>
         <form action="CrearProducto.jsp" method="POST">
             <div class="form-group">
               <label for="codigo">Codigo: </label>
@@ -33,20 +42,22 @@
               <label for="precio">Precio: </label>
               <input type="text" class="form-control" id="precio" name="precio" aria-describedby="emailHelp">
             </div>
-            <div class="form-group">
-              <label for="descuento">Descuento: </label>
-              <input type="text" class="form-control" id="descuento" name="descuento" aria-describedby="emailHelp">
-            </div>
             <button type="submit" class="btn btn-primary">Agregar</button>
             <button type="submit" class="btn btn-primary">Modificar</button>
             <button type="submit" class="btn btn-primary">Eliminar</button>
         </form>
-        
-        //alerta alerta
+        <%
+            }
+              else{
+                InformacionDAO informacionDao = new InformacionDAO(); 
+                Producto producto = new Producto(Integer.parseInt(codigo), nombreProducto, Integer.parseInt(cantidad), Double.parseDouble(precio)); 
+                informacionDao.guardarProducto(producto); 
+             %>
         <div class="alert alert-success" role="alert">
                 El producto fue agregado correctamente<a href="ListaProducto.jsp" class="alert-link">Ver reporte de productos</a>.
             </div>
-        
+        <%
+         }%>
          <form action="MenuPrincipal.jsp">
           <button type="submit" class="btn btn-secondary">Regresar al Menu</button>
         </form>

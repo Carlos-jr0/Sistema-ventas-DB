@@ -3,6 +3,8 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import modelo.Individual;
+import utilerias.InformacionDAO;
 
 public final class CrearClienteIndividual_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,6 +46,7 @@ public final class CrearClienteIndividual_jsp extends org.apache.jasper.runtime.
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -51,32 +54,59 @@ public final class CrearClienteIndividual_jsp extends org.apache.jasper.runtime.
       out.write("        <title>JSP Page</title>\n");
       out.write("        <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\n");
       out.write("    </head>\n");
-      out.write("    <body>\n");
+      out.write("    <body bgcolor=\"#893546\" text=\"#FFFFFF\"\n");
+      out.write("\tlink=\"#25B01A\" vlink=\"#1A2CB0\" alink=\"#E50A0A\">\n");
       out.write("        <h1>Agregar nuevos clientes</h1>\n");
+      out.write("        ");
+ 
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String direccion = request.getParameter("direccion");
+            String dpi = request.getParameter("dpi");
+            if(nombre==null && apellido==null && direccion==null && dpi==null){
+            
+        
+      out.write("\n");
       out.write("        \n");
       out.write("        <form action=\"CrearClienteIndividual.jsp\" method=\"POST\">\n");
       out.write("            <div class=\"form-group\">\n");
       out.write("              <label for=\"nombre\">Nombre: </label>\n");
-      out.write("              <input type=\"text\" class=\"form-control\" id=\"codigo\" name=\"codigo\" aria-describedby=\"emailHelp\">              \n");
+      out.write("              <input type=\"text\" class=\"form-control\" id=\"nombre\" name=\"nombre\" aria-describedby=\"emailHelp\">              \n");
       out.write("            </div>            \n");
       out.write("            <div class=\"form-group\">\n");
       out.write("              <label for=\"apellido\">Apellido: </label>\n");
-      out.write("              <input type=\"text\" class=\"form-control\" id=\"nombre\" name=\"nombre\" aria-describedby=\"emailHelp\">\n");
+      out.write("              <input type=\"text\" class=\"form-control\" id=\"apellido\" name=\"apellido\" aria-describedby=\"emailHelp\">\n");
       out.write("            </div>\n");
       out.write("            <div class=\"form-group\">\n");
       out.write("              <label for=\"direccion\">Dirección: </label>\n");
-      out.write("              <input type=\"text\" class=\"form-control\" id=\"nombre\" name=\"nombre\" aria-describedby=\"emailHelp\">\n");
+      out.write("              <input type=\"text\" class=\"form-control\" id=\"direccion\" name=\"direccion\" aria-describedby=\"emailHelp\">\n");
+      out.write("            </div>\n");
+      out.write("             <div class=\"form-group\">\n");
+      out.write("              <label for=\"dpi\">Dpi: </label>\n");
+      out.write("              <input type=\"text\" class=\"form-control\" id=\"dpi\" name=\"dpi\" aria-describedby=\"emailHelp\">\n");
       out.write("            </div>\n");
       out.write("            <button type=\"submit\" class=\"btn btn-primary\">Agregar</button>\n");
-      out.write("            <button type=\"submit\" class=\"btn btn-primary\">Modificar</button>\n");
-      out.write("            <button type=\"submit\" class=\"btn btn-primary\">Eliminar</button>\n");
+      out.write("    \n");
       out.write("        </form>\n");
-      out.write("        \n");
-      out.write("        //alerta alerta\n");
+      out.write("        ");
+
+            }
+              else{
+                //1. Crear una instancia de CarreraDAO
+                InformacionDAO informacionDao = new InformacionDAO(); 
+                //2. Crear una instancia de Carrera
+                Individual individual = new Individual(nombre, apellido, direccion, dpi);
+                //3. Insertar en la DB la carrera
+                informacionDao.guardarIndividual(individual);
+            
+      out.write("\n");
       out.write("        <div class=\"alert alert-success\" role=\"alert\">\n");
-      out.write("                El cliente fue agregado correctamente<a href=\"ListaClienteIndividual.jsp\" class=\"alert-link\">Ver Listado de Clientes</a>. \n");
+      out.write("                El cliente fue agregado correctamente<a href=\"ListaClienteIndividual.jsp\" class=\"alert-link\">Ver reporte de clientes</a>. \n");
       out.write("            </div>\n");
-      out.write("        \n");
+      out.write("        ");
+
+         }
+      out.write("\n");
       out.write("         <form action=\"MenuPrincipal.jsp\">\n");
       out.write("          <button type=\"submit\" class=\"btn btn-secondary\">Regresar Menu</button>\n");
       out.write("        </form>\n");

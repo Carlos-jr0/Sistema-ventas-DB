@@ -3,7 +3,9 @@
     Created on : 26/10/2020, 01:13:00 PM
     Author     : Alvarado Montes
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="modelo.Empresa"%> 
+<%@page import="utilerias.InformacionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +19,7 @@
         <table class="table table-striped">
             <thead class="thead-blue">
               <tr>
-                <th scope="col">id</th>
+                <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Direccion</th>
@@ -25,7 +27,24 @@
                 <th scope="col">Descuento</th>
               </tr>
             </thead>
-            
+            <%
+              InformacionDAO informacionDao = new InformacionDAO(); 
+              List<Empresa> empresas=informacionDao.getDBEmpresa(); 
+              int i=0;
+              for( Empresa empresa : empresas){ 
+                i++;
+              %>
+              
+                <th scope="row"><%=i%></th>
+                <td><%=empresa.getNombre()%></td> 
+                <td><%=empresa.getApellido()%></td>
+                <td><%=empresa.getDireccion()%></td>
+                <td><%=empresa.getContacto()%></td>
+                <td><%=empresa.getDescuento()%></td>  
+              
+              <% 
+               }
+              %>  
             </table>
         <form action="MenuPrincipal.jsp">
           <button type="submit" class="btn btn-secondary">Regresar al menu</button>

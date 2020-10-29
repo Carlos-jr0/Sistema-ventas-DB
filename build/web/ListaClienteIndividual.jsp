@@ -3,7 +3,9 @@
     Created on : 26/10/2020, 12:38:28 PM
     Author     : Alvarado Montes
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="modelo.Individual"%>
+<%@page import="utilerias.InformacionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,13 +19,31 @@
         <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">id</th>
+                <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Direccion</th>
                 <th scope="col">Dpi</th>
               </tr>
             </thead>
+            
+              <%
+              InformacionDAO informacionDao = new InformacionDAO(); 
+              List<Individual> individuales=informacionDao.getDBIndividual();
+              int i=0;
+              for( Individual individual : individuales){
+                i++;
+              %>
+              
+                <th scope="row"><%=i%></th>
+                <td><%=individual.getNombre()%></td> 
+                <td><%=individual.getApellido()%></td>
+                <td><%=individual.getDireccion()%></td>
+                <td><%=individual.getDpi()%></td>
+              
+              <% 
+               }
+              %>              
             
             </table>
         <form action="MenuPrincipal.jsp">
